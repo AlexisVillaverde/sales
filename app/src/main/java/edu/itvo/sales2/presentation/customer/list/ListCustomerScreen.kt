@@ -13,7 +13,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 @Composable
 fun ListCustomerScreen(
     modifier: Modifier= Modifier,
-    viewModel: ListCustomerViewModel = hiltViewModel()
+    viewModel: ListCustomerViewModel = hiltViewModel(),
+    onNavigateToUpdate: (String) -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
@@ -33,12 +34,7 @@ fun ListCustomerScreen(
         }
 
         else -> {
-            ListCustomer(customers = uiState.customers)
+            ListCustomer(customers = uiState.customers,onNavigateToUpdate = onNavigateToUpdate)
         }
-
-
-
-
-
     }
 }

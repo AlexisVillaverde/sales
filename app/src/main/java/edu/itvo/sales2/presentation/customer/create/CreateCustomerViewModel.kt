@@ -49,17 +49,14 @@ class CreateCustomerViewModel @Inject constructor(
     }
     private fun saveCustomer() {
         val currentState = state.value
-
         viewModelScope.launch {
             updateState { copy(isLoading = true) }
-
             try {
                 val customer = Customer(
                     id = currentState.id,
                     name = currentState.name,
                     email = currentState.email
                 )
-
                 val result = CustomerValidator().invoke(customer)
                 when (result) {
                     is ValidationResult.Success -> {
@@ -70,7 +67,6 @@ class CreateCustomerViewModel @Inject constructor(
                         sendEffect(CreateCustomerUiEffect.ShowSuccess("Cliente agregado..."))
                         delay(1000)
                         sendEffect(CreateCustomerUiEffect.NavigateBack)
-
                     }
                     is ValidationResult.Error -> {
                         sendEffect(CreateCustomerUiEffect.ShowError(result.message))
@@ -88,7 +84,6 @@ class CreateCustomerViewModel @Inject constructor(
             }
         }
     }
-
     private fun sendEffect(effect:  CreateCustomerUiEffect) {
         viewModelScope.launch {
             _effect.send(effect)

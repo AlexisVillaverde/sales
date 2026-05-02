@@ -1,5 +1,6 @@
 package edu.itvo.sales2.data.remote
 
+import edu.itvo.sales2.data.remote.datasource.CustomerFirebaseDataSource
 import edu.itvo.sales2.domain.model.Customer
 import edu.itvo.sales2.domain.repository.CustomerRepository
 import jakarta.inject.Inject
@@ -23,6 +24,11 @@ class FirestoreCustomerRepository @Inject constructor(
     override fun getCustomers(): Flow<List<Customer>> {
         return firebaseDataSource.getCustomers()
     }
+
+    override suspend fun updateCustomer(customer: Customer) {
+        //firebaseDataSource.updateCustomer(customer)
+    }
+
 
 
 }

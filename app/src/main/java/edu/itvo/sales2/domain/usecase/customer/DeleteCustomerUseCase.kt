@@ -12,5 +12,7 @@ class DeleteCustomerUseCase @Inject constructor(
         require(existing!=null){
             "Customer with id: $customerId does not exist"
         }
+
+        repository.deleteCustomer(customerId)
     }
 }

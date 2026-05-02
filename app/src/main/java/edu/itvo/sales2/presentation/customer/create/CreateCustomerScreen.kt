@@ -56,11 +56,9 @@ fun CreateCustomerScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) {
-
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
-
             OutlinedTextField(
                 value = state.id,
                 onValueChange = {
@@ -70,7 +68,6 @@ fun CreateCustomerScreen(
                 },
                 label = { Text("ID") }
             )
-
             OutlinedTextField(
                 value = state.name,
                 onValueChange = {
@@ -89,7 +86,6 @@ fun CreateCustomerScreen(
                 },
                 label = { Text("Email") }
             )
-
             Button(
                 onClick = {
                     viewModel.onEvent(
@@ -97,13 +93,9 @@ fun CreateCustomerScreen(
                     )
                     onNavigateBack()
                 }
-
-
             ) {
                 Text("Save")
             }
-
-
         }
     }
 }

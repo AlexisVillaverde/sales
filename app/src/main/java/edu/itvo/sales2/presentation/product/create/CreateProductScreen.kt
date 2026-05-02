@@ -77,7 +77,7 @@ fun CreateProductScreen(
                         CreateProductUiEvent.DescriptionChanged(it)
                     )
                 },
-                label = { Text("Descripción") }
+                label = { Text("Description") }
             )
             OutlinedTextField(
                 value = state.category,
@@ -86,7 +86,7 @@ fun CreateProductScreen(
                         CreateProductUiEvent.CategoryChanged(it)
                     )
                 },
-                label = { Text("Categoría") }
+                label = { Text("Category") }
             )
 
             OutlinedTextField(

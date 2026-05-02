@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import edu.itvo.sales2.domain.model.Product
 
 @Composable
-fun ProductItem(product: Product, onDelete: (Product)-> Unit) {
+fun ProductItem(product: Product, onDelete: (Product)-> Unit, onUpdate: (Product) -> Unit) {
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     if (showDeleteDialog) {
@@ -83,6 +84,12 @@ fun ProductItem(product: Product, onDelete: (Product)-> Unit) {
                     style = MaterialTheme.typography.bodyMedium
                 )
 
+
+
+                Text(
+                    text = "Stock: ${product.stock}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
                 IconButton(
                     onClick = { showDeleteDialog = true },
                     modifier = Modifier.size(24.dp)
@@ -93,12 +100,15 @@ fun ProductItem(product: Product, onDelete: (Product)-> Unit) {
                         tint = MaterialTheme.colorScheme.error
                     )
                 }
-
-
-                Text(
-                    text = "Stock: ${product.stock}",
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                IconButton(
+                    onClick = { onUpdate(product) },
+                    modifier = Modifier.size(24.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Editar producto"
+                    )
+                }
             }
 
             if (product.taxable) {

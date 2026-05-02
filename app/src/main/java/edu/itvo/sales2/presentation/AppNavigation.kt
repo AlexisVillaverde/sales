@@ -22,8 +22,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import edu.itvo.sales2.presentation.customer.create.CreateCustomerScreen
 import edu.itvo.sales2.presentation.customer.list.ListCustomerScreen
+import edu.itvo.sales2.presentation.customer.update.UpdateCustomerScreen
 import edu.itvo.sales2.presentation.product.create.CreateProductScreen
 import edu.itvo.sales2.presentation.product.list.ListProductScreen
+import edu.itvo.sales2.presentation.product.update.UpdateProductScreen
 
 @Composable
 fun AppNavigation() {
@@ -101,12 +103,23 @@ fun AppNavigation() {
                         }
                     }
                 ) { innerPadding ->
-                    ListProductScreen(Modifier.padding(innerPadding))
+                    ListProductScreen(Modifier.padding(innerPadding),
+                        onNavigateToUpdate = { code ->
+                            navController.navigate("update_product/$code")
+                        }
+                    )
                 }
             }
 
             composable("create_product") {
                 CreateProductScreen(
+                    onNavigateBack = { navController.popBackStack() }
+                )
+            }
+            composable("update_product/{productCode}") { backStackEntry ->
+                val productCode = backStackEntry.arguments?.getString("productCode") ?: ""
+                UpdateProductScreen(
+                    productCode = productCode,
                     onNavigateBack = { navController.popBackStack() }
                 )
             }
@@ -126,7 +139,11 @@ fun AppNavigation() {
                     }
                 ){
                         innerPadding ->
-                    ListCustomerScreen(Modifier.padding(innerPadding))
+                    ListCustomerScreen(Modifier.padding(innerPadding),
+                        onNavigateToUpdate = { id ->
+                            navController.navigate("update_customer/$id")
+                        }
+                    )
                 }
             }
             composable("create_customer") {
@@ -135,7 +152,13 @@ fun AppNavigation() {
                 )
             }
 
+            composable("update_customer/{customerId}") { backStackEntry ->
+                val customerId = backStackEntry.arguments?.getString("customerId") ?: ""
+                UpdateCustomerScreen(
+                    customerId = customerId,
+                    onNavigateBack = { navController.popBackStack() }
+                )
+            }
         }
     }
-
 }

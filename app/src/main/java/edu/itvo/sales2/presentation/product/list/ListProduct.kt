@@ -16,7 +16,8 @@ import edu.itvo.sales2.presentation.product.delete.DeleteProductViewModel
 @Composable
 fun ListProduct(
     products: List<Product>,
-    viewModel: DeleteProductViewModel = hiltViewModel()
+    deleteviewModel: DeleteProductViewModel = hiltViewModel(),
+    onNavigateToUpdate: (String) -> Unit
 ) {
 
 
@@ -32,9 +33,12 @@ fun ListProduct(
             ProductItem(product = product,
                 onDelete = { producto ->
                     // Lógica para eliminar del repositorio o ViewModel
-                    viewModel.onEvent(
+                    deleteviewModel.onEvent(
                         DeleteProductUiEvent.DeleteClicked(producto.code)
                     )
+                },
+                onUpdate = {
+                    onNavigateToUpdate(product.code)
                 })
         }
     }

@@ -18,7 +18,8 @@ import edu.itvo.sales2.presentation.customer.list.CustomerItem
 @Composable
 fun ListCustomer(
     customers: List<Customer>,
-    viewModel: DeleteCustomerViewModel = hiltViewModel()
+    deleteviewModel: DeleteCustomerViewModel = hiltViewModel(),
+    onNavigateToUpdate: (String) -> Unit
 ) {
 
 
@@ -32,12 +33,17 @@ fun ListCustomer(
             key = { it.id }
         ) { customer ->
             CustomerItem(customer = customer,
-                    onDelete = { customer->
+                onDelete = { customer->
                 // Lógica para eliminar del repositorio o ViewModel
-                        viewModel.onEvent(
+                        deleteviewModel.onEvent(
                             DeleteCustomerUiEvent.DeleteClicked(customer.id)
                         )
-            })
+                },
+                onUpdate = {
+                    // Normalmente navegas a la pantalla de edición pasando el ID
+                    onNavigateToUpdate(customer.id)
+                }
+            )
         }
     }
 }

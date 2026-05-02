@@ -19,23 +19,18 @@ class DeleteCustomerViewModel @Inject constructor(
     private val deleteCustomerUseCase: DeleteCustomerUseCase,
     private val listCustomerUseCase: ListCustomerUseCase
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(DeleteCustomerUiState(isLoading = true, customers = emptyList()))
     val state: StateFlow<DeleteCustomerUiState> = _state
-
     private val _effect = Channel<DeleteCustomerUiEffect>()
     val effect = _effect.receiveAsFlow()
-
     private fun updateState(update: DeleteCustomerUiState.() -> DeleteCustomerUiState) {
         _state.update(update)
     }
-
     fun onEvent(event: DeleteCustomerUiEvent) {
         when (event) {
             is DeleteCustomerUiEvent.DeleteClicked -> deleteCustomer (event.customerId)
         }
     }
-
     private fun deleteCustomer(customerId: String) {
 
         viewModelScope.launch {

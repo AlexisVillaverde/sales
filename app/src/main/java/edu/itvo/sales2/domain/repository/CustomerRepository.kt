@@ -10,6 +10,7 @@ interface CustomerRepository {
 
     suspend fun deleteCustomer(customerId: String)
 
+    suspend fun updateCustomer(customer: Customer)
     fun getCustomers(): Flow<List<Customer>>
 
 }

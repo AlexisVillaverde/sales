@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -29,7 +30,7 @@ import edu.itvo.sales2.domain.model.Customer
 
 
 @Composable
-fun CustomerItem(customer: Customer, onDelete: (Customer)-> Unit) {
+fun CustomerItem(customer: Customer, onDelete: (Customer)-> Unit, onUpdate: (Customer) -> Unit) {
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     if (showDeleteDialog) {
@@ -101,6 +102,15 @@ fun CustomerItem(customer: Customer, onDelete: (Customer)-> Unit) {
                     )
                 }
 
+                IconButton(
+                    onClick = { onUpdate(customer) },
+                    modifier = Modifier.size(24.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = "Editar customer"
+                    )
+                }
             }
         }
     }

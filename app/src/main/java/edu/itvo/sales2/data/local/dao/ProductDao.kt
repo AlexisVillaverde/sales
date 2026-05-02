@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import androidx.room.Update
 import edu.itvo.sales2.data.local.entity.ProductEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -21,4 +23,21 @@ interface ProductDao {
 
     @Query("DELETE FROM products WHERE code = :code")
     suspend fun deleteByCode(code: String)
+    @Update
+    suspend fun updateProduct(product: ProductEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(products: List<ProductEntity>)
+
+    @Query("DELETE FROM products")
+    suspend fun clearAll()
+
+    @Transaction
+    suspend fun replaceAll(products: List<ProductEntity>) {
+        clearAll()
+        insertAll(products)
+    }
+
+
 }
+
